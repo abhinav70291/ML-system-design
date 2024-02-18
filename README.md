@@ -39,11 +39,39 @@ The function calculates the memory usage of the model’s features and parameter
 
 This function estimates the training and inference times. The parameters are `device` (the device where the model is loaded), `batch_size` (the batch size), `epochs` (the number of epochs), `model` (the PyTorch model), `total_samples` (the total number of samples), and `input_size` (the size of the input tensor).
 
-The function creates a random input tensor on the CPU, moves it to the specified device, and feeds it to the model. It measures the time taken for both the forward pass and the backward pass, and uses these times to estimate the total training and inference times.
+The function creates a random input tensor on the CPU, moves it to the specified device, and feeds it to the model. It measures the time taken for both the forward pass and the backward pass( assuming that backward pass time is roughly equal to the forward pas) , and uses these times to estimate the total training and inference times.
 
-## Code Quality
+## Parameters
 
-The code is simple, modular, well-documented, and thoroughly tested. Each function has a single responsibility, which makes the code easy to understand and modify. The functions are independent of each other, which makes the code highly modular. The code is well-documented with comments that explain what each function does and what each line of code does. The code has been thoroughly tested to ensure that it works correctly under various conditions.
+The code uses several parameters to control its behavior:
+
+### `device`
+
+The `device` parameter is obtained by calling the `get_device()` function. This function checks if a GPU is available and returns `torch.device('cuda')` if it is. If a GPU is not available, it returns `torch.device('cpu')`.
+
+### `model_names`
+
+The `model_names` parameter is a list of strings that specify the names of the models we're about to experiment with. The models are from the `torchvision.models.detection` module and include:
+
+- 'maskrcnn_resnet50_fpn'
+- 'fasterrcnn_resnet50_fpn'
+- 'fcos_resnet50_fpn'
+- 'retinanet_resnet50_fpn'
+- 'ssd300_vgg16'
+- 'ssdlite320_mobilenet_v3_large'
+
+### `batch_size`
+In this case, the batch size is set to 8.
+
+### `epochs`
+In this case, the number of epochs is set to 3.
+
+### `total_samples`
+
+The `total_samples` parameter is an integer that specifies the total number of samples in your dataset. In this case, the total number of samples is set to 50,000. You should replace this with the actual size of your dataset.
+
+These parameters are used throughout the code to control the behavior of the model, the hardware used, and the training process. They are designed to be easily adjustable to suit your specific needs.
+
 
 ## Conclusion
 
